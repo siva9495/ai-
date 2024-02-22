@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import Header from "./header";
 import Footer from "./footer";
 const details = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [videoLink, setVideoLink] = useState("");
+
   const data = [
     {
       id: 1,
@@ -82,11 +84,25 @@ const details = () => {
       link: "https://www.youtube.com/embed/8AOB2PtHfVM?si=ddGfnoXFiQM6DYqR",
     },
   ];
+  const handleDialogOpen = (link) => {
+    setVideoLink(link);
+    const dialog = document.getElementById("my-dialog");
+    dialog.showModal();
+    document.body.classList.add("blur"); // Add blur class to the body
+  };
 
+  const handleDialogClose = () => {
+    document.getElementById("my-dialog").close();
+    setVideoLink(""); // Reset videoLink state
+    document.body.classList.remove("blur"); // Remove blur class from the body
+  };
   return (
     <>
       <Header />
-      <div className="table-container">
+      <div
+        className="table-container"
+        style={{ filter: videoLink ? "blur(4px)" : "unset" }}
+      >
         <table className="data-table">
           <thead>
             <tr>
@@ -112,22 +128,17 @@ const details = () => {
                 <td>{item.time}</td>
                 <td>{item.diagnosis}</td>
                 <td style={{ textAlign: "center" }}>
-                  {videoLinks.map((video) => {
-                    if (video.id === item.id) {
-                      return (
-                        <Link
-                          to={{
-                            pathname: "/description",
-                            search: `?id=${item.id}&name=${item.name}&age=${item.age}&gender=${item.gender}&diagnosis=${item.diagnosis}&link=${video.link}`,
-                          }}
-                          key={video.id}
-                        >
-                          <button className="videoButton">Watch Video</button>
-                        </Link>
-                      );
-                    }
-                    return null;
-                  })}
+                  {videoLinks.map((video) =>
+                    video.id === item.id ? (
+                      <button
+                        key={video.id}
+                        onClick={() => handleDialogOpen(video.link)}
+                        className="videoButton"
+                      >
+                        Watch Video
+                      </button>
+                    ) : null
+                  )}
                 </td>
                 <td>{item.size}</td>
               </tr>
@@ -135,6 +146,26 @@ const details = () => {
           </tbody>
         </table>
       </div>
+      <dialog id="my-dialog">
+        <div style={{ display: "flex", justifyContent: "end" }}>
+          <button
+            className="dialog_button"
+            // onClick={() => document.getElementById("my-dialog").close()}
+            onClick={handleDialogClose}
+          >
+            Close
+          </button>
+        </div>
+        <iframe
+          width="640"
+          height="360"
+          src={videoLink}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </dialog>
       <Footer />
     </>
   );
