@@ -1,19 +1,27 @@
-import "./App.css";
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/login";
-import Details from "./components/details";
-// import Description from "./components/description";
+import './App.css'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import Login from "./components/Login.jsx";
+import Details from './components/Details.jsx';
+import EditDetails from "./components/EditDetails.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" Component={Login} />
-        <Route path="/details" Component={Details} />
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <Login/>
+        </Route>
+        <Route path="/details">
+          <Details/>
+        </Route>
+        <Route path="/edit-details">
+          <EditDetails/>
+        </Route>
         {/* <Route path="/description" Component={Description} /> */}
-      </Routes>
-    </BrowserRouter>
+        <Redirect to="/" />
+      </Switch>
+    </Router>
   );
 }
 

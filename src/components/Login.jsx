@@ -1,9 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { useHistory } from 'react-router-dom';
 // import Header from "./header";
-import Footer from "./footer";
+import Footer from './footer';
 
-function login() {
+const Login = () => {
+
+  const history = useHistory();
+
+  const hanldeToSubmit = () => {
+    history.push('/details');
+  };
+
   return (
     <>
       <div
@@ -56,9 +63,7 @@ function login() {
               <label htmlFor="password">Password</label>
               <input type="password" id="password" required />
             </div>
-            <Link to={"details"}>
-              <button type="submit">Login</button>
-            </Link>
+              <button type="submit" onClick={hanldeToSubmit}>Login</button>
           </form>
         </div>
       </div>
@@ -67,4 +72,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
