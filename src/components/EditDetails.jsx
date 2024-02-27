@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
 import './EditDetails.css'
+import toast, { Toaster } from 'react-hot-toast'
 import firebase from '../FIREBASE/firebase'
 
 const EditDetails = () => {
@@ -45,6 +46,31 @@ const EditDetails = () => {
     }, []);
 
     const hanldeSaveDetails = () => {
+
+      if(!name){
+        toast.error('Please enter Name')
+        return;
+      }else if(!age){
+        toast.error('Please enter Age')
+        return;
+      }else if(!gender){
+        toast.error('Please enter Gender')
+        return;
+      }else if(!date){
+        toast.error('Please enter Date')
+        return;
+      }else if(!time){
+        toast.error('Please enter Time')
+        return;
+      }else if(!diagnosis){
+        toast.error('Please enter Diagnosis')
+        return;
+      }
+
+      if (isNaN(Number(age))) {
+        toast.error('Age must be a number');
+        return;
+      }
 
       const details = {
         name: name,
@@ -175,6 +201,7 @@ const EditDetails = () => {
               </form>
             </div>
           </div>
+          <Toaster position='top-right'/>
     <Footer />
     </>
   )

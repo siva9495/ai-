@@ -82,7 +82,6 @@ button:hover {
 }
 
 .data-table {
-  width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
@@ -126,7 +125,6 @@ button:hover {
 }
 
 .table-container {
-  width: 100%;
   border: 1px solid;
   border-collapse: collapse;
   margin-bottom: 20px;
