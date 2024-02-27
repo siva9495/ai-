@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
 
-.reportIssue_innerbox{
+.fillDetails_innerbox{
     position: absolute;
     margin-top: 110px;
+    margin-bottom: 500px;
     width: calc(100% - 4.1rem);
     height: 100%;
     top: 50%;
@@ -14,7 +15,7 @@
     align-items: center;
 }
 
-.reportIssue_form{
+.fillDetails_form{
     position: relative;
     /* background-color: red; */
     width: 47%;
@@ -23,7 +24,7 @@
     background-color: #f5f5f5;
 }
 
-form.reportIssue_form1{
+form.fillDetails_form1{
     /* background-color: red; */
     max-width: 260px;
     width: 100%;
@@ -34,7 +35,7 @@ form.reportIssue_form1{
     /* background-color: white; */
 }
 
-.reportIssue_back{
+.fillDetails_back{
     height: 20px;
     margin-top: 10px;
     display: flex;
@@ -43,7 +44,7 @@ form.reportIssue_form1{
     background-color: rgb(40, 40, 75);
 }
 
-.reportIssue_back i{
+.fillDetails_back i{
   width: 15px;
   margin: 0.3rem;
   transition: .3s;
@@ -52,26 +53,26 @@ form.reportIssue_form1{
   
 }
 
-.reportIssue_back h4{
+.fillDetails_back h4{
   font-size: 0.7rem;
   letter-spacing: -0.5px;
   color: white;
   transition: .3s;
 }
 
-.reportIssue_back:hover{
+.fillDetails_back:hover{
   cursor: pointer;
   background-color: #0056b3;
 }
 
-.reportIssue_input_wrap{
+.fillDetails_input_wrap{
     position: relative;
     height: 37px;
     margin-top: 20px;
     margin-bottom: 2rem;
 }
 
-.reportIssue_input_field{
+.fillDetails_input_field{
   margin-top: -30px;
     position: absolute;
     width: 100%;
@@ -86,8 +87,8 @@ form.reportIssue_form1{
     transition: .4s;
 }
 
-.reportIssue_input_field::-webkit-inner-spin-button,
-.reportIssue_input_field::-webkit-outer-spin-button {
+.fillDetails_input_field::-webkit-inner-spin-button,
+.fillDetails_input_field::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
   display: none;
@@ -105,17 +106,17 @@ label.label_edit_details{
     transition: .4s;
 }
 
-.reportIssue_input_field.active{
+.fillDetails_input_field.active{
     border-bottom-color: #151111;
 
 }
 
-.reportIssue_input_field.active + label{
+.fillDetails_input_field.active + label{
     font-size: 0.75rem;
     top: -2px;
 }
 
-.report_issue_btn{
+.fill_details_btn{
     display: inline-block;
     width: 100%;
     height: 43px;
@@ -125,11 +126,11 @@ label.label_edit_details{
     cursor: pointer;
     border-radius: 0.8rem;
     font-size: .8rem;
-    margin-bottom: 2rem;
     transition: 0.3s;
+    margin-bottom: 60px;
 }
 
-.report_issue_btn:hover{
+.fill_details_btn:hover{
     background-color: #8371fd;
 }
 
@@ -142,14 +143,13 @@ label.label_edit_details{
   color: black;
   transition: 0.3s;
   text-decoration: underline;
-
 }
 
 .text a:hover{
   color: #8371fd;
 }
 
-.reportIssue_footer{
+.fillDetails_footer{
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -168,7 +168,7 @@ label.label_edit_details{
 
 @media (max-width: 390px){
 
-    .ReportIssueBody{
+    .fillDetailsBody{
         /* background-color: green; */
         /* height: 100%;
         width: 100%;
@@ -180,7 +180,7 @@ label.label_edit_details{
         min-height: 700px;
     }
 
-    .ReportIssue_content{
+    .fillDetails_content{
         /* background-color: blue; */
         display: flex;
         align-items: center;
@@ -189,7 +189,7 @@ label.label_edit_details{
         overflow: hidden;
     }
 
-    .ReportIssue_content .ReportIssue_box{
+    .fillDetails_content .fillDetails_box{
         min-height: 610px;
         min-width: 300px;
         overflow: hidden;
@@ -198,7 +198,7 @@ label.label_edit_details{
     }
     
      
-    .ReportIssue_box .reportIssue_innerbox{
+    .fillDetails_box .fillDetails_innerbox{
         /* background-color: red; */
         position: static;
         transform: none;
@@ -207,7 +207,7 @@ label.label_edit_details{
         
     }
 
-    .reportIssue_form{
+    .fillDetails_form{
         /* background-color: black; */
         position: revert;
         height: 75%;
@@ -218,25 +218,25 @@ label.label_edit_details{
         
     }
     
-    form.reportIssue_form1{
+    form.fillDetails_form1{
         /* background-color: red; */
         position: revert;
         width: 100%;
         overflow: auto;
     }
     
-    .reportIssue_back{
+    .fillDetails_back{
         /* background-color: green; */
         margin-top: -60px;
         border-radius: 2rem;
     }
     
-    .ReportIssue_heading{
+    .fillDetails_heading{
         /* background-color: blue; */
         margin-top: 20px;
     }
     
-    .reportIssue_actual_form{
+    .fillDetails_actual_form{
         margin-top: 35px;
         /* background-color: green; */
     }
@@ -245,7 +245,7 @@ label.label_edit_details{
         margin-top: -30px;
     }
     
-    .reportIssue_footer{
+    .fillDetails_footer{
         width: 380px;
         position: fixed;
         bottom: 0;
@@ -255,7 +255,7 @@ label.label_edit_details{
 
 @media (max-width: 450px){
 
-    .ReportIssueBody{
+    .fillDetailsBody{
         /* background-color: green; */
         /* height: 100%;
         width: 100%;
@@ -267,7 +267,7 @@ label.label_edit_details{
         height: 700px;
     }
 
-    .ReportIssue_content{
+    .fillDetails_content{
         /* background-color: blue; */
         display: flex;
         align-items: center;
@@ -276,7 +276,7 @@ label.label_edit_details{
         overflow: hidden;
     }
 
-    .ReportIssue_content .ReportIssue_box{
+    .fillDetails_content .fillDetails_box{
         min-height: 650px;
         min-width: 300px;
         overflow: hidden;
@@ -285,7 +285,7 @@ label.label_edit_details{
     }
     
      
-    .ReportIssue_box .reportIssue_innerbox{
+    .fillDetails_box .fillDetails_innerbox{
         /* background-color: red; */
         position: static;
         transform: none;
@@ -294,7 +294,7 @@ label.label_edit_details{
         
     }
 
-    .reportIssue_form{
+    .fillDetails_form{
         /* background-color: black; */
         position: revert;
         height: 75%;
@@ -305,25 +305,25 @@ label.label_edit_details{
         
     }
     
-    form.reportIssue_form1{
+    form.fillDetails_form1{
         /* background-color: red; */
         position: revert;
         width: 100%;
         overflow: auto;
     }
     
-    .reportIssue_back{
+    .fillDetails_back{
         /* background-color: green; */
         margin-top: -60px;
         border-radius: 2rem;
     }
     
-    .ReportIssue_heading{
+    .fillDetails_heading{
         /* background-color: blue; */
         margin-top: 50px;
     }
     
-    .reportIssue_actual_form{
+    .fillDetails_actual_form{
         margin-top: 35px;
         /* background-color: green; */
     }
@@ -332,7 +332,7 @@ label.label_edit_details{
         margin-top: -30px;
     }
     
-    .reportIssue_footer{
+    .fillDetails_footer{
         width: 380px;
         position: fixed;
         bottom: 0;

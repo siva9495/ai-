@@ -6,10 +6,12 @@ import firebase from '../FIREBASE/firebase';
 
 const Details = () => {
   const [videoUrls, setVideoUrls] = useState([]);
+  const [videoNames, setVideoNames] = useState([]);
+  const [videoDetails, setVideoDetails] = useState({});
   const history = useHistory();
 
   useEffect(() => {
-    const fetchVideoUrls = async () => {
+    const fetchVideoData = async () => {
       try {
         const storageRef = firebase.storage().ref();
         const videosFolderRef = storageRef.child('cameraVideos');
@@ -17,16 +19,38 @@ const Details = () => {
         const urls = await Promise.all(
           videoList.items.map(async (videoRef) => {
             const url = await videoRef.getDownloadURL();
-            return url;
+            const metaData = await videoRef.getMetadata();
+            const videoName = metaData.name;
+            return { url, videoName };
           })
         );
+
+        const names = await Promise.all(
+          videoList.items.map(async (videoRef) => {
+            const metaData = await videoRef.getMetadata();
+            const videoName = metaData.name;
+            return videoName;
+          })
+        );
+
+        setVideoNames(names);
         setVideoUrls(urls);
+
+        const videoDetailsPromises = names.map(async (videoName) => {
+          const [sanitizedVideoName] = videoName.split('.');
+          const snapshot = await firebase.database().ref(`userDetails/${sanitizedVideoName}`).once('value');
+          return snapshot.val();
+        });
+        const details = await Promise.all(videoDetailsPromises);
+        const videoDetailsMap = Object.fromEntries(names.map((name, index) => [name, details[index]]));
+        setVideoDetails(videoDetailsMap);
+      
       } catch (error) {
-        console.error('Error fetching video URLs:', error);
+        console.error('Error fetching video data:', error);
       }
     };
 
-    fetchVideoUrls();
+    fetchVideoData();
   }, []);
 
   const handleDialogOpen = (url) => {
@@ -43,8 +67,11 @@ const Details = () => {
     document.body.classList.remove('blur');
   };
 
-  const handleEditDetails = () => {
-    history.push('/edit-details');
+  const handleEditDetails = (url, name) => {
+    history.push({
+      pathname: '/edit-details',
+      state: { url, name }
+    });
   };
 
   return (
@@ -66,24 +93,24 @@ const Details = () => {
             </tr>
           </thead>
           <tbody>
-            {videoUrls.map((url, index) => (
+            {videoUrls.map((video, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>Name</td>
-                <td>Age</td>
-                <td>Gender</td>
-                <td>Date</td>
-                <td>Time</td>
-                <td>Diagnosis</td>
+                <td>{videoDetails[videoNames[index]]?.name || '-'}</td>
+                <td>{videoDetails[videoNames[index]]?.age || '-'}</td>
+                <td>{videoDetails[videoNames[index]]?.gender || '-'}</td>
+                <td>{videoDetails[videoNames[index]]?.date || '-'}</td>
+                <td>{videoDetails[videoNames[index]]?.time || '-'}</td>
+                <td>{videoDetails[videoNames[index]]?.diagnosis || '-'}</td>
                 <td style={{ textAlign: 'center' }}>
-                  <button className="videoButton" onClick={() => handleDialogOpen(url)}>
+                  <button className="videoButton" onClick={() => handleDialogOpen(video.url)}>
                     Watch Video
                   </button>
                 </td>
                 <td>
-                    <button className="editButton" onClick={handleEditDetails}>
-                        Edit Details
-                    </button>
+                  <button className="editButton" onClick={() => handleEditDetails(video.url, videoNames[index])}>
+                    Edit Details
+                  </button>
                 </td>
               </tr>
             ))}

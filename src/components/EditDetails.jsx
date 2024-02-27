@@ -1,12 +1,24 @@
 import React,{useState,useEffect} from 'react'
+import { useLocation } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
 import './EditDetails.css'
+import firebase from '../FIREBASE/firebase'
 
 const EditDetails = () => {
+  const location = useLocation();
+  const videoUrl = location.state?.url || '';
+  const videoName = location.state?.name || '';
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+
 
     useEffect(() => {
-        const inputs = document.querySelectorAll('.reportIssue_input_field');
+        const inputs = document.querySelectorAll('.fillDetails_input_field');
         // Event listeners for input fields
         inputs.forEach((inp) => {
         inp.addEventListener('focus', () => {
@@ -32,107 +44,132 @@ const EditDetails = () => {
         };
     }, []);
 
+    const hanldeSaveDetails = () => {
+
+      const details = {
+        name: name,
+        age: age,
+        gender: gender,
+        date: date,
+        time: time,
+        diagnosis: diagnosis,
+        videoUrl: videoUrl,
+        videoName: videoName
+      };
+
+      const [sanitizedVideoName] = videoName.split('.');
+
+      firebase
+        .database()
+        .ref('userDetails/'+sanitizedVideoName)
+        .set(details)
+        .then(() => {
+          console.log("Details saved successfully")
+        })
+        .catch((error) => {
+          console.log("Error adding details: ",error);
+        })
+    };
 
   return (
     <>
     <Header />
-    <div className='reportIssue_innerbox'>
-            <div className='reportIssue_form'>
-              <form className='reportIssue_form1' autoComplete='off'>
-                <div className='reportIssue_back' 
-                // onClick={handleReportIssueClickDashBoard}
+    <div className='fillDetails_innerbox'>
+            <div className='fillDetails_form'>
+              <form className='fillDetails_form1' autoComplete='off'>
+                <div className='fillDetails_back' 
                 >
                   <i className='bx bx-right-arrow-alt'></i>
                   <h4>Go To Dashboard</h4>
                 </div>
-                <div className='ReportIssue_heading'>
+                <div className='fillDetails_heading'>
                   <h2>Fill Details</h2>
                 </div>
 
-                <div className='reportIssue_actual_form'>
-                  <div className='reportIssue_input_wrap'>
+                <div className='fillDetails_actual_form'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueTitle}
-                    //   onChange={(e) => setReportIssueTitle(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueTitle'>Name</label>
+                    <label className='label_edit_details' htmlFor='name'>Name</label>
                   </div>
 
-                  <div className='reportIssue_input_wrap'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueDescription}
-                    //   onChange={(e) => setReportIssueDescription(e.target.value)}
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueDescription'>Age</label>
+                    <label className='label_edit_details' htmlFor='age'>Age</label>
                   </div>
 
-                  <div className='reportIssue_input_wrap'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueDescription}
-                    //   onChange={(e) => setReportIssueDescription(e.target.value)}
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueDescription'>Gender</label>
+                    <label className='label_edit_details' htmlFor='gender'>Gender</label>
                   </div>
 
-                  <div className='reportIssue_input_wrap'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueDescription}
-                    //   onChange={(e) => setReportIssueDescription(e.target.value)}
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueDescription'>Date</label>
+                    <label className='label_edit_details' htmlFor='date'>Date</label>
                   </div>
 
-                  <div className='reportIssue_input_wrap'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueDescription}
-                    //   onChange={(e) => setReportIssueDescription(e.target.value)}
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueDescription'>Time</label>
+                    <label className='label_edit_details' htmlFor='time'>Time</label>
                   </div>
 
-                  <div className='reportIssue_input_wrap'>
+                  <div className='fillDetails_input_wrap'>
                     <input
                       required
                       type='text'
-                      className='reportIssue_input_field'
+                      className='fillDetails_input_field'
                       autoComplete='off'
                       inputMode='text'
-                    //   value={ReportIssueDescription}
-                    //   onChange={(e) => setReportIssueDescription(e.target.value)}
+                      value={diagnosis}
+                      onChange={(e) => setDiagnosis(e.target.value)}
                     />
-                    <label className='label_edit_details' htmlFor='ReportIssueDescription'>Diagnosis</label>
+                    <label className='label_edit_details' htmlFor='diagnosis'>Diagnosis</label>
                   </div>
 
                   <input
                     type='button'
                     value='SUBMIT'
-                    className='report_issue_btn'
-                    // onClick={handleReportIssue}
+                    className='fill_details_btn'
+                    onClick={hanldeSaveDetails}
                   />
                 </div>
               </form>
